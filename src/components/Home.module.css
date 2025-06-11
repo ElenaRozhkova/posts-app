@@ -1,0 +1,17 @@
+.title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #a9bcd0;
+    padding-bottom: 5px;
+    margin: auto;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    justify-content: space-between;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+}
