@@ -34,11 +34,12 @@ const Posts = () => {
         <>
             <Formular />
             <main className={styles.posts}>
-                <h2 className={styles.posts_title}>Posts</h2>
+                <h2 className={styles.posts_title}>Po
+                    sts</h2>
                 <ul className={styles.posts_list}>
                     {posts.map(post => (
-                        <NavLink to={`/posts/${post.id}`}>
-                            <li key={post.id} className={styles.post_item}>
+                        <NavLink key={post.id} to={`/posts/${post.id}`} >
+                            <li className={styles.post_item}>
                                 <p className={styles.post_title}>{post.title}</p>
                             </li>
                         </NavLink>

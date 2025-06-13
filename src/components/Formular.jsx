@@ -59,13 +59,14 @@ const Formular = () => {
         <form className={styles.formular} onSubmit={handleSubmit}>
             <h2>Neuer Post</h2>
             <div className={styles.form_group}>
-                <label>Titel:</label>
-                <input type="text" value={newPost.title} onChange={handleChange('title')} />
+                <label htmlFor="title">Titel:</label>
+                <input id="title" type="text" value={newPost.title} onChange={handleChange('title')} />
+
                 {errors.title && <div className={styles.error_message}>{errors.title}</div>}
             </div>
             <div className={styles.form_group}>
-                <label>Text:</label>
-                <textarea rows="5" value={newPost.body} onChange={handleChange('body')} />
+                <label htmlFor="body">Text:</label>
+                <textarea id="body" rows="5" value={newPost.body} onChange={handleChange('body')} />
                 {errors.body && <div className={styles.error_message}>{errors.body}</div>}
             </div>
             <button type="submit" className={styles.submit_button}>Absenden</button>
