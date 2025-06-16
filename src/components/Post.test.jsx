@@ -2,6 +2,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import Post from './Post';
 
+
 // Mock react-router-dom und überschreibe useParams
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -26,6 +27,20 @@ afterEach(() => {
 });
 
 describe('Post Komponente', () => {
+
+    /*  test('lädt Postdetail asynchron', async () => {
+          // Mock einer API-Antwort
+          const mockUser = {
+              id: 1,
+              title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+              body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+          };
+          // Asynchrone Operation ausführen
+          const post = await fetchData(1);
+          // Ergebnis überprüfen
+          expect(post).toEqual(mockUser);
+      });*/
+
     test('zeigt Post-Titel und Body an', async () => {
         render(<Post />);
 

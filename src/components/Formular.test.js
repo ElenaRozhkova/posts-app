@@ -1,5 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Formular from './Formular';
+
+beforeEach(() => {
+    global.fetch = jest.fn();
+});
+
+
 
 test('zeigt Validierungsfehler an, wenn Formular leer abgesendet wird', () => {
     render(<Formular />);
@@ -21,4 +27,45 @@ test('aktualisiert Eingabefelder beim Tippen', () => {
 
     expect(titleInput.value).toBe('Mein Titel');
     expect(bodyTextarea.value).toBe('Mein Text');
+});
+
+test('Formular-Submission funktioniert', async () => {
+    global.fetch.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ id: 123 }),
+    });
+
+    render(<Formular />);
+
+    fireEvent.change(screen.getByLabelText(/titel/i), {
+        target: { value: 'Test Titel' },
+    });
+    fireEvent.change(screen.getByLabelText(/text/i), {
+        target: { value: 'Test Text' },
+    });
+
+    fireEvent.click(screen.getByText(/absenden/i));
+
+    await waitFor(() => {
+        expect(screen.getByText(/post erfolgreich gesendet/i)).toBeInTheDocument();
+    });
+});
+
+test('zeigt Fehlermeldung bei Fehler beim Absenden', async () => {
+    global.fetch.mockRejectedValueOnce(new Error('Netzwerkfehler'));
+
+    render(<Formular />);
+
+    fireEvent.change(screen.getByLabelText(/titel/i), {
+        target: { value: 'Fehlertest' },
+    });
+    fireEvent.change(screen.getByLabelText(/text/i), {
+        target: { value: 'Fehlertext' },
+    });
+
+    fireEvent.click(screen.getByText(/absenden/i));
+
+    await waitFor(() => {
+        expect(screen.getByText(/fehler beim senden/i)).toBeInTheDocument();
+    });
 });
